@@ -1,7 +1,7 @@
 const fastifyPlugin = require('fastify-plugin')
 const fsequelize = require('fastify-sequelize');
 
-async function dbConnector(server, options, next) {
+const dbConnector = async (server, options, next) => {
 
     const sequelizeConfig = {
         instance: 'db',
