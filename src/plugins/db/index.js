@@ -1,7 +1,7 @@
 const fastifyPlugin = require('fastify-plugin')
 const fsequelize = require('fastify-sequelize');
 
-async function dbConnector(server, options, next) {
+const dbConnector = async (server, options, next) => {
 
     const sequelizeConfig = {
         instance: 'db',
@@ -14,7 +14,18 @@ async function dbConnector(server, options, next) {
         dialect: 'mysql',
     }
 
-    server.register(fsequelize, sequelizeConfig).ready(() => {
+    server.register(fsequelize, sequelizeConfig).ready(async () => {
+
+        require('./models/contacts')(server.db)
+
+        const modelDecoration = {}
+        server.db.modelManager.models.forEach(model => {
+            modelDecoration[model.name] = model
+        });
+
+        server.decorate('models', modelDecoration)
+        await server.db.sync();
+
         console.log('DB Ready');
         next();
     })

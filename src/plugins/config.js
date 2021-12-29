@@ -28,7 +28,7 @@ const schema = {
     }
 }
 
-async function configReader(server, options, next) {
+const configReader = async (server, options, next) => {
     server
         .register(fastifyEnv, {
             dotenv: true,

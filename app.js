@@ -11,7 +11,6 @@ const server = fastify(serverConfig)
 
 server.register(require('./src/plugins/config'));
 server.register(require('./src/plugins/db'));
-server.register(require('./src/plugins/dbModels'));
 server.register(require('./src/routes'));
 
 const startSever = async () => {
