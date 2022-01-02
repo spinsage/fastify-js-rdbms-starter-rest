@@ -14,8 +14,8 @@ server.register(require('./src/plugins/db'));
 server.register(require('./src/routes'));
 
 const startSever = async () => {
-    await server.ready()
-    server.listen(process.env.SERVER_PORT, (err) => {
+    await server.ready();
+    server.listen(process.env.SERVER_PORT, '0.0.0.0', (err) => {
         if (err) {
             server.log.error(err);
             process.exit(1);
